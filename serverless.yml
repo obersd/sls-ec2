@@ -1,0 +1,31 @@
+service: ec2-instance-service
+
+provider:
+  name: aws
+  profile: my_aws_profile
+  runtime: nodejs18.x
+  stage: dev
+  region: us-east-1
+
+resources:
+  Resources:
+    MyEC2Instance:
+      Type: AWS::EC2::Instance
+      Properties:
+        ImageId: ami-xxxxxxxxxxxxxxxxx
+        InstanceType: t2.micro
+        KeyName: my_key_pairs_name
+        SecurityGroupIds:
+          - sg-xxxxxxxxxxxxxxxxx
+        SubnetId: subnet-xxxxxxxxxxxxxxxxx
+        UserData:
+          Fn::Base64: |
+            #!/bin/bash
+            echo "Hello World" > /home/ec2-user/hello.txt
+            yum update -y
+            npm install -g serverless
+	    echo "other commands"
+        Tags:
+          - Key: Name
+            Value: MyEC2Instance
+
