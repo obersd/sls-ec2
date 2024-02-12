@@ -18,14 +18,13 @@ resources:
         SecurityGroupIds:
           - sg-xxxxxxxxxxxxxxxxx
         SubnetId: subnet-xxxxxxxxxxxxxxxxx
+        Tags:
+          - Key: Name
+            Value: MyEC2Instance
         UserData:
           Fn::Base64: |
             #!/bin/bash
             echo "Hello World" > /home/ec2-user/hello.txt
             yum update -y
             npm install -g serverless
-	    echo "other commands"
-        Tags:
-          - Key: Name
-            Value: MyEC2Instance
-
+            echo "other commands"

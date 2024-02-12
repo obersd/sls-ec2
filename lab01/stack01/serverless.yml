@@ -1,0 +1,22 @@
+service: security-group-test-stack-1
+
+provider:
+  name: aws
+  stage: dev
+  region: us-east-1
+
+resources:
+  Resources:
+    OldSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: An original security group
+        GroupName: SG01
+        Tags:
+          - Key: Name
+            Value: SG01
+        SecurityGroupIngress:
+          - IpProtocol: tcp
+            FromPort: 1433
+            ToPort: 1433
+            CidrIp: 0.0.0.0/0
